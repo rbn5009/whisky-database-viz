@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+
+{% block page_title %}
+<h3>Data and Tool Description:</h3>
+{% endblock %}
+
+{% block header1 %}
+{% endblock %}
+
+{% block header2 %}
+{% endblock %}
+
+{% block introduction %}
+<p style="font-size: 16px;">
+The dataset was collected from the <a href="https://www.thewhiskyexchange.com" style="color:#1f4cfd;">The Whisky Exchange</a>. Each whisky in the database has the following numerical attributes that contribute to its flavor profile:
+<ul style="font-size: 14px;">
+  <li>Style: {Body, Richness, Smoke, Sweetness} on scale from 0-4</li>
+  <li>Binary indicators for 111 different flavors, where the top ten most common are: {Vanilla, Cinnamon, Smoke, Apple, Orange, Honey, Oak, Toffee, Lemon, Raisins}</li>
+</ul>
+<p style="font-size: 14px">
+Each whisky also has the following categorical attributes that can be used to support additional clustering, filtering, etc: 
+</p>
+<ul style="font-size: 14px;">
+  <li>Country of Origin</li>
+  <li>Region</li>
+  <li>Age, yrs</li>
+  <li>Cask Type</li>
+  <li>Added Colouring</li>
+  <li>Proof</li>
+</ul>
+</p>
+<p style="font-size: 16px">
+Thus, for each whisky we have a 115 dimensional feature vector describing the style, characteristics, and flavors in each dram. Obviously we cannot visualize 115 dimensions, but we can use statistical dimensionality reduction techniques such as t-SNE algorithm to condense our data down to 2-D for the sake of visualization. The algorithm tries to minimize the probability distribution differences between the full and reduced-order embeddings. For more information on the t-SNE algorithm and implementation check out this <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html" style="color:#1f4cfd">link</a>. 
+</p>
+{% endblock %}
+
+
+
+{% block other %}
+  <!-- <div id="doughnut-chart"></div> -->
+{% endblock %}
+
+{% block r2c2 %}
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Country', 'Percentage'],
+        ['Scotland',     70],
+        ['America',      15],
+        ['England',  5],
+        ['Japan', 5],
+        ['New Zealand', 5]
+      ]);
+
+      var options = {pieHole: 0.4, height: 300, width:400, chartArea:{left:15, right: 15, top:0,width:'100%',height:'100%'}, legend: {alignment: 'center'}};
+
+      var chart = new google.visualization.PieChart(document.getElementById('doughnut-chart'));
+
+      chart.draw(data, options);
+    }
+  </script>
+{% endblock %}
+

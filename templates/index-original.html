@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/static/images/favicon.ico" type="image/ico" />
+
+    <title>Whisky Analytics | Home </title>
+
+  <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/nprogress.css') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/custom.min.css') }}">
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-database"></i> <span>Whisky Analytics</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="static/images/user.png" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Guest</h2>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+<!--                 <h3>Let's get started...</h3>
+ -->                <ul class="nav side-menu">
+                 <li><a><i class="fa fa-table"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tables.html">About</a></li>
+                      <li><a href="tables_dynamic.html">Motivation</a></li>
+                      <li><a href="tables_dynamic.html">Terms and Conditions</a></li>
+                    </ul>
+                  </li>
+
+                 <li><a><i class="fa fa-table"></i> Dashboards <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="tables.html">Exploration</a></li>
+                      <li><a href="tables_dynamic.html">Descriptive Statistics</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Database <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs.html">Chart JS</a></li>
+                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                    </ul>
+                  </li>
+                 <li><a><i class="fa fa-envelope"></i> Contact & Support<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs3.html"></a>Email</li>
+                      <li><a href="chartjs3.html"></a>Donate</li>
+
+                    </ul>
+                  </li>
+                
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="/static/images/user.png" alt="">Guest
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                        <a class="dropdown-item"  href="javascript:;">
+                          <span class="badge bg-red pull-right">50%</span>
+                          <span>Settings</span>
+                        </a>
+                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    </div>
+                  </li>
+
+                </ul>
+              </nav>
+            </div>
+          </div>
+        <!-- /top navigation -->
+
+
+        <div class="right_col" role="main">
+          <div class="page-title">
+            <div class="title_left">
+              <h3>Welcome to Whisky Analytics!</h3>
+              <br>
+              <h5>Site Metrics</h5>              
+            </div>
+          </div>
+          <!-- top tiles -->
+          <div class="row" style="display: inline-block; width: 100%;" >
+            <div class="tile_count">
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-bar-chart"></i> Whiskey Profiles</span>
+                <div class="count">648</div>
+                <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Registered Users</span>
+                <div class="count">1</div>
+                <span class="count_bottom"><i class="green">0% </i> From last Week</span>
+              </div>            
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-eye"></i> Site Views</span>
+                <div class="count green">0</div>
+                <span class="count_bottom"><i class="green"><i></i>34% </i> From last Week</span>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-thumbs-up"></i> Likes</span>
+                <div class="count green">0</div>
+                <span class="count_bottom"><i class="red"><i></i>0% </i> From last Week</span>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-commenting"></i> User Reviews</span>
+                <div class="count">0</div>
+                <span class="count_bottom"><i class="green"><i></i>0% </i> From last Week</span>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-commenting"></i> User Comments</span>
+                <div class="count">0</div>
+                <span class="count_bottom"><i class="green"><i></i>0% </i> From last Week</span>
+              </div>
+            </div>
+        </div>
+
+        <div class="page-title">
+          <div class="title_left">
+            <br>
+            <h5>What's New</h5>              
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-4 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Recent Activities <small>Sessions</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Settings 1</a>
+                          <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                    <ul class="list-unstyled timeline widget">
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                          </h2>
+                            <div class="byline">
+                              <span>13 hours ago</span> by <a>Jane Smith</a>
+                            </div>
+                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Whisky by Country <small>Top 5</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Settings 1</a>
+                          <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div id="doughnut-chart">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+
+<!--             <div class="col-md-4 col-sm-4 ">
+              <div class="x_panel tile fixed_height_320 overflow_hidden">
+                <div class="x_title">
+                  <h2>Types of Whisky</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Settings 1</a>
+                          <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <table class="" style="width:100%">
+                    <tr>
+                      <th style="width:37%;">
+                        <p>Top 5</p>
+                      </th>
+                      <th>
+                        <div class="col-lg-7 col-md-7 col-sm-7 ">
+                          <p class="">Country</p>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 ">
+                          <p class="">Percentage</p>
+                        </div>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <canvas id = "doughnut-chart" class="canvasDoughnut" height="140px" width="140px" style="margin: -250px 10px 10px 0"></canvas>
+                      </td>
+                      <td>
+                        <table class="tile_info">
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square blue"></i>IOS </p>
+                            </td>
+                            <td>30%</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square green"></i>Android </p>
+                            </td>
+                            <td>10%</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square purple"></i>Blackberry </p>
+                            </td>
+                            <td>20%</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square aero"></i>Symbian </p>
+                            </td>
+                            <td>15%</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p><i class="fa fa-square red"></i>Others </p>
+                            </td>
+                            <td>30%</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+ -->
+
+<!--               <div class="row">
+ -->                <!-- Start to do list -->
+          
+                      <!-- footer content
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/fastclick.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/nprogress.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/Chart.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/gauge.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/bootstrap-progressbar.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/icheck.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/skycons.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.pie.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.time.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.stack.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.resize.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.orderBars.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.spline.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/curvedLines.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/date.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.world.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.sampledata.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/moment.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/daterangepicker.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/custom.min.js') }}"></script>
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Percentage'],
+          ['Scotland',     70],
+          ['America',      15],
+          ['England',  5],
+          ['Japan', 5],
+          ['New Zealand', 5]
+        ]);
+
+        var options = {pieHole: 0.4, height: 300, width:400, chartArea:{left:15, right: 15, top:0,width:'100%',height:'100%'}, legend: {alignment: 'center'}};
+
+        var chart = new google.visualization.PieChart(document.getElementById('doughnut-chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+  </body>
+</html>

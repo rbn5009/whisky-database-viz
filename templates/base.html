@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% block head %}
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" href="/static/images/favicon.ico" type="image/ico" />
+      <title>Whisky Analytics | Home </title>
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome.min.css') }}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/nprogress.css') }}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/custom.min.css') }}">
+
+    {% endblock %}
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="{{ url_for('index') }}" class="site_title"><i class="fa fa-database"></i> <span>Whisky Analytics</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="static/images/user.png" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Guest</h2>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                 <ul class="nav side-menu">
+                 <li><a><i class="fa fa-table"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url_for('about') }}">About</a></li>
+                      <li><a href="{{ url_for('about') }}">Motivation</a></li>
+                      <li><a href="{{ url_for('about') }}">Terms and Conditions</a></li>
+                    </ul>
+                  </li>
+                 <li><a><i class="fa fa-table"></i> Dashboards <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{ url_for('tsne_description') }}">Description</a></li>
+                      <li><a href="{{ url_for('tsne_scatter') }}">Exploration Tool</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Database <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs.html">Chart JS</a></li>
+                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                    </ul>
+                  </li>
+                 <li><a><i class="fa fa-envelope"></i> Contact & Support<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="chartjs3.html"></a>Email</li>
+                      <li><a href="chartjs3.html"></a>Donate</li>
+                    </ul>
+                  </li>
+                
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="/static/images/user.png" alt="">Guest
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                        <a class="dropdown-item"  href="javascript:;">
+                          <span class="badge bg-red pull-right">50%</span>
+                          <span>Settings</span>
+                        </a>
+                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    </div>
+                  </li>
+
+                </ul>
+              </nav>
+           </div>
+        </div>
+        <!-- /top navigation -->
+
+        <div class="right_col" role="main">
+          <div class="page-title">
+            <div class="title_left">
+              {% block page_title %}{% endblock %}
+              {% block other %}
+          {% endblock %}
+            </div>
+
+            <div class="row" style="display: inline-block; width: 100%;">
+                <br>
+                {% block introduction %}{% endblock %}
+            </div>
+
+            
+            <div class="title_left">      
+              <br>
+              {% block header1 %}{% endblock %}
+            </div>
+          </div>
+
+          <!-- site metric tiles -->
+          <div class="row" style="display: inline-block; width: 100%;">
+              {% block column1 %}{% endblock %}
+          </div>
+
+          <div class="page-title">
+            <div class="title_left">
+              <br>
+              {% block header2 %}{% endblock %}
+            </div>
+          </div>
+
+          <div class="row">
+            {% block r2c1 %}{% endblock %}
+            {% block r2c2 %}{% endblock %}
+          </div>
+
+        </div>
+      </div>
+
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/fastclick.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/nprogress.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/Chart.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/gauge.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/bootstrap-progressbar.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/icheck.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/skycons.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.pie.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.time.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.stack.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.resize.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.orderBars.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.flot.spline.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/curvedLines.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/date.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.world.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/jquery.vmap.sampledata.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/moment.min.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/daterangepicker.js') }}"></script>
+  <script type=text/javascript src="{{url_for('static', filename='js/custom.min.js') }}"></script>
+
+  {% block scripts %}{% endblock %}
+
+  </body>
+</html>

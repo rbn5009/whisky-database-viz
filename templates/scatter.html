@@ -1,0 +1,138 @@
+{% extends "empty_base.html" %}
+
+<script>
+  var data = {{ data|tojson }};
+</script>
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <h1>T-SNE Plot</h1>  
+  </div>
+  <br>
+  <div class="row" style="height: 700px;">
+    <div class="col" style="height: 100%; width: 100%">
+      <canvas id="scatter-chart" style="height: 80%"></canvas>
+    </div>
+    <div class="col">
+      <h2 style="font-color: black">Color By:</h2>
+      <div id="Dropdown" class="relative" style="float: left; font-size: 18px;"></div>
+    </div>
+  </div>
+
+{% endblock %}    
+
+
+{% block scripts %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+<script>
+    var data = {{ data|tojson }};
+    var axes = [{% for item in axes %}
+            "{{item}}",
+        {% endfor %}]
+
+    var canvas = document.getElementById("scatter-chart");
+    var ctx = canvas.getContext('2d');
+
+    // Global Options:
+    Chart.defaults.global.defaultFontColor = 'black';
+    Chart.defaults.global.defaultFontSize = 16;
+
+
+     var options = {
+      tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    /*var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += Math.round(tooltipItem.xLabel * 100) / 100 + "\n";
+                    label += Math.round(tooltipItem.yLabel * 100) / 100;
+*/                  var label = [];
+                    label.push("X: " + Math.round(tooltipItem.xLabel * 100) / 100);
+                    label.push("Y: " + Math.round(tooltipItem.yLabel * 100) / 100);
+                    return label;
+                }
+            },
+
+            labelColor: function(tooltipItem, chart) {
+                    return {
+                        borderColor: 'rgb(255, 0, 0)',
+                        backgroundColor: 'rgb(255, 255, 255)'
+                    };
+                },
+        },
+      responsive: true,
+      title: {
+              display: true,
+              text: axes[0], 
+              fontSize: 25
+
+            },
+
+       scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:false
+                  },
+                  scaleLabel: {
+                       display: true,
+                       labelString: axes[2],
+                       fontSize: 20 
+                    }
+              }] , 
+
+              xAxes: [{
+                  ticks: {
+                      beginAtZero:false
+                  },
+                  scaleLabel: {
+                       display: true,
+                       labelString: axes[1],
+                       fontSize: 20 
+                    },
+                  type: 'linear'
+              }] 
+
+              },
+        legend: {
+                display: true,
+                position: 'right',
+                usePointStyle: true  
+        }  
+     };
+
+     // draw bar chart
+    var myBarChart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: options
+    }); 
+
+    var menu = d3.select("#Dropdown")
+    menu.append("select")
+        .selectAll("option")
+        .data(["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"])
+        .enter()
+        .append("option")
+        .attr('width', 50)
+        .attr('height', 20)
+        .attr("value", function(d){
+            return d;
+        })
+        .text(function(d){
+            return d;
+        });
+
+
+</script> 
+
+
+{% endblock %}
+

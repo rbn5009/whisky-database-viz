@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+
+{% block page_title %}
+<h3>Welcome to Whisky Analytics</h3>
+{% endblock %}
+
+{% block header1 %}
+<h5>Site Metrics</h5>
+{% endblock %}
+
+{% block header2 %}
+<h5>What's New</h5>
+{% endblock %}
+
+{% block introduction %}
+<p>
+Let's be honest...searching for the next bottle of whisky can be a daunting task. Whether you are standing in front of hundreds of bottles in a package store, or thumbing through a 50+ page menu at a local whisky bar, sometimes the multitude of options just makes choosing that much more difficult. To address this problem, this site was created with the hopes of helping users find new and exciting whiskies through the use of exploratory and visual data analysis tools. Using these tools, we can factor in a variety of metrics such as: country of origin, region, age, cask type, grain or malt ratio, flavor profiles, characteristics, price, proof and more. 
+</p>
+{% endblock %}
+
+
+{% block column1 %}
+ <div class="tile_count">
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-bar-chart"></i> Whisky Profiles</span>
+      <div class="count">648</div>
+      <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+    </div>
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Registered Users</span>
+      <div class="count">1</div>
+      <span class="count_bottom"><i class="green">0% </i> From last Week</span>
+    </div>            
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-eye"></i> Site Views</span>
+      <div class="count green">0</div>
+      <span class="count_bottom"><i class="green"><i></i>34% </i> From last Week</span>
+    </div>
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-thumbs-up"></i> Likes</span>
+      <div class="count green">0</div>
+      <span class="count_bottom"><i class="red"><i></i>0% </i> From last Week</span>
+    </div>
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-commenting"></i> User Reviews</span>
+      <div class="count">0</div>
+      <span class="count_bottom"><i class="green"><i></i>0% </i> From last Week</span>
+    </div>
+    <div class="col-md-2 col-sm-4  tile_stats_count">
+      <span class="count_top"><i class="fa fa-commenting"></i> User Comments</span>
+      <div class="count">0</div>
+      <span class="count_bottom"><i class="green"><i></i>0% </i> From last Week</span>
+    </div>
+ </div>
+{% endblock %}
+
+{% block r2c1 %}
+<div class="col-md-4 col-sm-4 ">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Recent Activities <small>Sessions</small></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Settings 1</a>
+              <a class="dropdown-item" href="#">Settings 2</a>
+            </div>
+        </li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div class="dashboard-widget-content">
+
+        <ul class="list-unstyled timeline widget">
+          <li>
+            <div class="block">
+              <div class="block_content">
+                <h2 class="title">
+                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                              </h2>
+                <div class="byline">
+                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                </div>
+                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="block">
+              <div class="block_content">
+                <h2 class="title">
+                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                              </h2>
+                <div class="byline">
+                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                </div>
+                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="block">
+              <div class="block_content">
+                <h2 class="title">
+                                  <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                              </h2>
+                <div class="byline">
+                  <span>13 hours ago</span> by <a>Jane Smith</a>
+                </div>
+                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block r2c2 %}
+<div class="col-md-4 col-sm-4 ">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Whisky by Country <small>Top 5</small></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Settings 1</a>
+              <a class="dropdown-item" href="#">Settings 2</a>
+            </div>
+        </li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div id="doughnut-chart">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Country', 'Percentage'],
+        ['Scotland',     70],
+        ['America',      15],
+        ['England',  5],
+        ['Japan', 5],
+        ['New Zealand', 5]
+      ]);
+
+      var options = {pieHole: 0.4, height: 300, width:400, chartArea:{left:15, right: 15, top:0,width:'100%',height:'100%'}, legend: {alignment: 'center'}};
+
+      var chart = new google.visualization.PieChart(document.getElementById('doughnut-chart'));
+
+      chart.draw(data, options);
+    }
+  </script>
+{% endblock %}
+
