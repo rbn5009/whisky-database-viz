@@ -115,7 +115,7 @@ def create_database(urls = None):
 	return db
 
 def load_database():
-	with open("whisky-database.json", "r") as f:
+	with open("./database/whisky-database.json", "r") as f:
 		db = json.load(f)
 	return db
 
