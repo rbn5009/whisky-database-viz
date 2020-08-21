@@ -5,6 +5,7 @@ from tqdm import tqdm
 import json
 import sys
 from math import sqrt
+import numpy as np
 from joblib import Parallel, delayed
 
 def get_whisky_characteristics(url = r'https://www.thewhiskyexchange.com/p/55556/macallan-rare-cask-2020-release', return_data=False):
@@ -119,7 +120,7 @@ def load_database():
 		db = json.load(f)
 	return db
 
-def prepare_database(db):
+def prepare_database(db, save_jsons=True):
 	data = []
 	styles = ['Body', 'Richness', 'Smoke', 'Sweetness']
 	categorical_variables = ['Country', 'Region', 'Cask Type', 'Price per 70cl, USD', 'Proof', 'Age, yrs', 'Colouring']
@@ -134,11 +135,11 @@ def prepare_database(db):
 	flavor_dict = dict(zip(unique_flavors, range(len(unique_flavors))))
 
 	categorical_data = []
+	whisky_names = []
 	for entry in db:
 		row = []
 		cat = []
 		row.extend(list(entry['Style'].values()))
-		#row.extend([entry['Proof']])
 
 		characteristics = np.array([0] * len(flavor_dict))
 		for char in entry["Characteristics"]:
@@ -148,8 +149,117 @@ def prepare_database(db):
 		data.append(row)
 
 		cat = [entry[i] if i in entry else 'N/A' for i in categorical_variables]
-		categorical_data.append(cat)
 
+		#perform some clean up to remove duplicates / mispellings for region
+		if cat[1] == 'Kenucky': cat[1] = 'Kentucky'
+		if 'Washington' in cat[1]: cat[1] = 'Washington' 
 
-	return np.vstack(data), dict(zip(categorical_variables, np.vstack(categorical_data).T))
+		#add general cask type / finish details:
+		if cat[2] in cask_types.keys():
+			cat[2] = cask_types[cat[2]]
+		else:
+			cat[2] = "Other"
+
+		categorical_data.append(cat)	
+		whisky_names.append(entry['Name'].replace("\n", ": ").lstrip().rstrip())
+
+	attr_data = dict(zip(categorical_variables, np.vstack(categorical_data).T.tolist()))
+
+	if save_jsons:
+		with open('./database/attribute_data.json', 'w') as f:
+			attrs = json.dump(attr_data, f)
+		with open('./database/whisky_names.json', 'w') as f:
+			attrs = json.dump(whisky_names, f)	
+
+	return np.vstack(data), attr_data, whisky_names
+
+cask_types = {
+"1st Fill Bourbon":"Bourbon",
+"1st Fill Sherry Butt":"Sherry",
+"2nd Fill Bourbon Barrel":"Bourbon",
+"2nd Fill Bourbon Hogshead":"Bourbon",
+"Atlantic-Kombu-seaweed-charred New oak Finish":"Other",
+"Banyuls Wine Finish":"Wine",
+"Barolo Wine Finish":"Wine",
+"Bordeaux Wine Finish":"Wine",
+"Bordeaux Wine Hogsheads Finish":"Wine",
+"Bourbon":"Bourbon",
+"Bourbon Barrel":"Bourbon",
+"Bourbon Butt":"Bourbon",
+"Bourbon Finish":"Bourbon",
+"Bourbon Hogshead":"Bourbon",
+"Cherry Wood Finish":"Wood",
+"Cognac Barrique Finish":"Cognac",
+"Cognac Finish":"Cognac",
+"Côte-Rôtie Wine Finish":"Wine",
+"Demerara Rum Finish":"Rum",
+"First Fill Bourbon":"Bourbon",
+"First Fill Oloroso Sherry":"Sherry",
+"First Fill Sherry Butt":"Sherry",
+"First Fill Sherry Hogshead":"Sherry",
+"First Fill Sherry Puncheon":"Sherry",
+"First-Fill Bourbon":"Bourbon",
+"First-Fill Oloroso Sherry Butt":"Sherry",
+"First-Fill Oloroso Sherry Finish":"Sherry",
+"First-Fill Sherry":"Sherry",
+"First-Fill Sherry Butt":"Sherry",
+"First-fill Bourbon":"Bourbon",
+"First-fill Oloroso Sherry Butt Finish":"Sherry",
+"First-fill Sherry Butt":"Sherry",
+"First-fill Sherry Butt Finish":"Sherry",
+"First-fill Spanish Oloroso Sherry Butt":"Sherry",
+"Fortified Wine Barrel":"Wine",
+"Grande Champagne Cognac Finish":"Cognac",
+"India Pale Ale Beer Finish":"IPA",
+"Madeira":"Wine",
+"Madeira Finish":"Wine",
+"Madeira Hogshead":"Wine",
+"Malmsey Madeira Finish":"Wine",
+"Marsala Wine Hogshead":"Wine",
+"Matusalem Sherry Butt Finish":"Sherry",
+"Moscatel Wine":"Wine",
+"Moscatel Wine Barrique Finish":"Wine",
+"N/A":"Other",
+"New oak":"Wood",
+"New oak Hogshead Finish":"Wood",
+"Oloroso Sherry":"Sherry",
+"Oloroso Sherry Butt":"Sherry",
+"Oloroso Sherry Butt Finish":"Sherry",
+"Oloroso Sherry Butts":"Sherry",
+"Oloroso Sherry Finish":"Sherry",
+"Oloroso Sherry Hogshead Finish":"Sherry",
+"Pedro Ximenez Sherry":"Sherry",
+"Pedro Ximenez Sherry Finish":"Sherry",
+"Port":"Wine",
+"Port Barrel Finish":"Wine",
+"Port Finish":"Wine",
+"Port Pipe Finish":"Wine",
+"Port Wine Finish":"Wine",
+"Red Wine":"Wine",
+"Red Wine Finish":"Wine",
+"Refill Bourbon Barrel":"Bourbon",
+"Refill Port":"Wine",
+"Refill Sherry":"Sherry",
+"Refill Sherry Butt":"Sherry",
+"Refill Sherry Hogshead":"Sherry",
+"Ruby Port Finish":"Wine",
+"Rum":"Rum",
+"Rum Finish":"Rum",
+"Rye Finish":"Rye",
+"Sauternes Wine":"Wine",
+"Sauternes Wine Finish":"Wine",
+"Sherry":"Sherry",
+"Sherry Butt":"Sherry",
+"Sherry Butt Finish":"Sherry",
+"Sherry Finish":"Sherry",
+"Sherry Hogshead":"Sherry",
+"Sweet Wine Finish":"Wine",
+"Talia Bourbon Finish":"Bourbon",
+"Tawny Port Finish":"Wine",
+"Tawny Port Pipe":"Wine",
+"Tawny Port Pipe Finish":"Wine",
+"White Wine":"Wine",
+"Wine":"Wine",
+"Wine Barrel Finish":"Wine",
+"Wine Finish":"Wine"}
 

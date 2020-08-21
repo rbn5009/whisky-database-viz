@@ -115,9 +115,8 @@ def create_umap_xy_points(X, n_neighbors=3, min_dist=0.01):
 
 	metrics = ['hamming', 'jaccard', 'dice', 'russellrao', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'yule']
 	for metric in metrics:
-		mapper = umap.UMAP(metric=metric, n_neighbors=n_neighbors, n_epochs=500, min_dist = min_dist).fit(X)
-		Xt = mapper.transform(X)
-		data[metric] = {'x': Xt[:,0].tolist(), 'y': Xt[:,1].tolist()}
+		mapper = umap.UMAP(n_components=10, metric=metric, n_neighbors=n_neighbors, n_epochs=500, min_dist = min_dist).fit(X)
+		data[metric] = mapper.transform(X).tolist()
 
 	with open('./database/umap_coordinates.json', 'w') as f:
 		json.dump(data, f)

@@ -2,24 +2,49 @@
 
 <script>
   var data = {{ data|tojson }};
+  var attrs = {{ attrs|tojson}};
+  var coord = {{ coord|tojson}};
 </script>
+
+<style>
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1000px) {
+  .column {
+    width: 100%;
+  }
+}
+
+canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+</style>
 
 {% block title %}
 {% endblock %}
 
 {% block content %}
   <div class="row">
-    <h1>T-SNE Plot</h1>  
+    <button onclick="resetZoom()">Reset Zoom</button>
   </div>
   <br>
-  <div class="row" style="height: 700px;">
-    <div class="col" style="height: 100%; width: 100%">
-      <canvas id="scatter-chart" style="height: 80%"></canvas>
+  <div class="row" style="float: left; width: 100%; height: 700px;">
+    <div class="column left">
+      <canvas id="scatter-chart"></canvas>
     </div>
-    <div class="col">
-      <h2 style="font-color: black">Color By:</h2>
-      <div id="Dropdown" class="relative" style="float: left; font-size: 18px;"></div>
+    
+    <div class="column" style="float: right; height: 400px; width:20%; padding: 0 0 0 30px;">
+        <h2 style="font-color: black">Color By:</h2>
+        <div id="attrDropdown" class="relative" style="font-size: 18px;"></div>
     </div>
+    
+    <div class="column" style="float: right; height: 400px; width:20%; padding: 0 0 0 0px;">
+      <h2 style="font-color: black">Similarity Metric:</h2>
+      <div id="metricDropdown" class="relative" style="font-size: 18px;"></div>
+    </div>  
+
   </div>
 
 {% endblock %}    
@@ -28,15 +53,25 @@
 {% block scripts %}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
 
 <script>
     var data = {{ data|tojson }};
+    var attrs = {{ attrs|tojson}};
+    var coord = {{ coord|tojson}};
+    var names = {{ names|tojson}};
+
     var axes = [{% for item in axes %}
             "{{item}}",
         {% endfor %}]
 
     var canvas = document.getElementById("scatter-chart");
     var ctx = canvas.getContext('2d');
+
+    ctx.canvas.width = window.innerWidth*0.35;
+    ctx.canvas.height = window.innerHeight*0.7;
 
     // Global Options:
     Chart.defaults.global.defaultFontColor = 'black';
@@ -47,16 +82,12 @@
       tooltips: {
             callbacks: {
                 label: function(tooltipItem, data) {
-                    /*var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                   var label = [];
+                    label.push("Name: " + data["datasets"][tooltipItem.datasetIndex]["names"][tooltipItem.index]);
+                    Object.keys(data["datasets"][tooltipItem.datasetIndex]["attrs"]).forEach(function(d){
+                      label.push(d + ": " + data["datasets"][tooltipItem.datasetIndex]["attrs"][d][tooltipItem.index])
+                    });
 
-                    if (label) {
-                        label += ': ';
-                    }
-                    label += Math.round(tooltipItem.xLabel * 100) / 100 + "\n";
-                    label += Math.round(tooltipItem.yLabel * 100) / 100;
-*/                  var label = [];
-                    label.push("X: " + Math.round(tooltipItem.xLabel * 100) / 100);
-                    label.push("Y: " + Math.round(tooltipItem.yLabel * 100) / 100);
                     return label;
                 }
             },
@@ -103,22 +134,46 @@
               },
         legend: {
                 display: true,
-                position: 'right',
+                position: 'bottom',
                 usePointStyle: true  
-        }  
-     };
+        },
+
+        pan: {
+            enabled: true,
+            mode: 'xy',
+            onPan: function () { console.log('I was panned!!!'); }
+          },
+        
+        zoom: {
+            enabled: true,
+            drag:true,
+            drag: {
+              borderColor: 'rgba(225,225,225,0.3)',
+              borderWidth: 5,
+              backgroundColor: 'rgba(225,225,225,0.8)',
+              animationDuration: 0
+            },              
+            mode: 'xy',
+            onZoom: function () { console.log('I was zoomed!!!'); }
+          },
+        };
+
+   
 
      // draw bar chart
+
     var myBarChart = new Chart(ctx, {
             type: 'scatter',
             data: data,
             options: options
     }); 
 
-    var menu = d3.select("#Dropdown")
+
+    var attr_list = Object.keys(attrs);
+    var menu = d3.select("#attrDropdown");
     menu.append("select")
         .selectAll("option")
-        .data(["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"])
+        .data(attr_list)
         .enter()
         .append("option")
         .attr('width', 50)
@@ -128,9 +183,146 @@
         })
         .text(function(d){
             return d;
-        });
+        })
+        .property("selected", function(d){return d === "Country"});
 
 
+
+    var metrics = ['dice', 'hamming', 'jaccard', 'russellrao', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'yule'];
+    var menu2 = d3.select("#metricDropdown");
+    menu2.append("select")
+        .selectAll("option")
+        .data(metrics)
+        .enter()
+        .append("option")
+        .attr('width', 50)
+        .attr('height', 20)
+        .attr("value", function(d){
+            return d;
+        })
+        .text(function(d){
+            return d;
+        })
+        .property("selected", function(d){return d === "dice"});
+
+    function update_metric(chart){
+          var metric = menu2[0][0].firstElementChild.value;
+          var coord_data = coord[metric];
+          chart.data.datasets.forEach((dataset) => {
+              dataset.data = [];
+              dataset.idx.forEach(function(i){dataset.data.push( {'x': coord_data[i][0], 'y': coord_data[i][1]} )});
+          });
+
+          var new_data = []
+
+          chart.update();
+    };
+
+    function get_attributes_by_index(list){
+      var attributes = {};
+      Object.keys(data.datasets[0].attrs).forEach(function(d){
+        var attr_list = [];
+        list.forEach(function(i){
+          attr_list.push(attrs[d][i]);
+        })
+        attributes[d] = attr_list;
+      });
+      return attributes;
+    };
+
+    function update_color(chart){
+          var key = menu[0][0].firstElementChild.value;
+          var metric = menu2[0][0].firstElementChild.value;
+          var coord_data = coord[metric];
+          var unique_values = new Set(attrs[key]);
+          var new_datasets = [];
+          var new_labels = [];
+
+          unique_values.forEach(function(d){
+            new_labels.push(d);
+            var ind = [];
+            var names = [];
+            var new_attr = {};
+            //find indices of data has this attribute
+            chart.data.datasets.forEach( (dataset) => {
+              dataset.attrs[key].forEach(function(j,i) {
+                if(j==d) {
+                 ind.push(dataset.idx[i]);
+                 names.push(dataset.names[i]);
+                 new_attr = get_attributes_by_index(ind);
+                 };
+              });
+            });
+
+            //debugger;
+
+            var pts = [];
+            ind.forEach(function(k){
+                  pts.push( {'x': coord_data[k][0], 'y': coord_data[k][1]} );
+            });
+
+            var r = Math.ceil(Math.random()*255);
+            var g = Math.ceil(Math.random()*255);
+            var b = Math.ceil(Math.random()*255);
+
+
+            var dataset = {
+              'label': d,     
+              'data': pts,
+              'backgroundColor': "rgba(0,0,0,0)",
+              'borderColor': "rgba(" + r + "," + b +"," +g+ ",0.8)",
+              'borderCapStyle': 'circle',
+              'borderDash': [],
+              'borderDashOffset': 0.0,
+              'borderJoinStyle': 'miter',
+              'pointBackgroundColor': "rgba(" + r + "," + b +"," +g+ ",0.8)",
+              'pointBorderColor': "black",
+              'pointBorderWidth': 1,
+              'pointHoverBackgroundColor': "rgba(" + r + "," + b +"," +g+ ",1.0)",
+              'pointHoverRadius': 8,
+              'pointHoverBorderColor': "black",
+              'pointHoverBorderWidth': 1,
+              'pointRadius': 6,
+              'pointHitRadius': 10,
+              'lineTension': 0.1,
+              'showLine': false,
+              'idx': ind,
+              'names': names,
+              'attrs': new_attr
+            };
+            new_datasets.push(dataset);
+
+          });
+
+          chart.data.datasets = new_datasets;
+          chart.data.labels = new_labels;
+          chart.update();
+    };
+  
+    function resetZoom() {
+      myBarChart.resetZoom();
+    }
+
+    // Run update function when dropdown selection changes
+     menu.on('change', function(){ 
+       var selection = d3.select(this)
+                          .select("select")
+                          .property("value");
+      update_color(myBarChart);
+    });
+
+
+    // Run update function when dropdown selection changes
+     menu2.on('change', function(){ 
+       var selection = d3.select(this)
+                          .select("select")
+                          .property("value");
+      update_metric(myBarChart);
+    });
+
+
+
+     update_metric(myBarChart);
 </script> 
 
 
